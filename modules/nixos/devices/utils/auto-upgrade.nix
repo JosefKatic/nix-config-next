@@ -12,7 +12,7 @@
   inherit (config.networking) hostName;
 in {
   options.device.utils.autoUpgrade = {
-    enable = lib.mkEnableOption "Description xD";
+    enable = lib.mkEnableOption "Enable auto-upgrade";
   };
 
   config = lib.mkIf cfg.autoUpgrade.enable {
@@ -21,8 +21,8 @@ in {
       dates = "hourly";
       allowReboot = true;
       rebootWindow = {
-        lower = "01:00";
-        upper = "05:00";
+        lower = "17:00";
+        upper = "03:00";
       };
       flags = [
         "--refresh"

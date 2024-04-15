@@ -6,6 +6,19 @@
   ...
 }: let
   cfg = config.device;
+
+  otherDrivesOpts = {
+    name,
+    config,
+    ...
+  }: {
+    options = {
+      path = lib.mkOption {
+        type = lib.types.path;
+        description = "The path to the drive.";
+      };
+    };
+  };
 in {
   options.device.core.storage = {
     systemDrive = {
@@ -21,17 +34,8 @@ in {
       };
     };
     otherDrives = lib.mkOption {
-      type = lib.types.listOf {
-        name = lib.mkOption {
-          type = lib.types.str;
-          description = "The name of the drive.";
-        };
-        path = lib.mkOption {
-          type = lib.types.path;
-          description = "The path to the drive.";
-        };
-      };
-      default = [];
+      type = lib.types.attrsOf (lib.types.submodule [otherDrivesOpts]);
+      default = {};
       description = "The names of the other drives.";
     };
   };

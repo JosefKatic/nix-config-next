@@ -1,12 +1,19 @@
 {
   description = "joka's NixOS and Home-Manager flake";
 
-  outputs = inputs:
+  outputs = {
+    self,
+    nur,
+    nixpkgs,
+    hm,
+    deploy-rs,
+    ...
+  } @ inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux"];
 
       imports = [
-        # ./shell.nix
+        ./shell.nix
         ./pkgs
         ./home/profiles
         ./hosts
@@ -14,39 +21,14 @@
         ./modules
         # ./pre-commit-hooks.nix
       ];
-
-      perSystem = {
-        config,
-        pkgs,
-        ...
-      }: {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            nix
-            home-manager
-            git
-            alejandra
-            nodePackages.prettier
-            sops
-            ssh-to-age
-            gnupg
-            age
-            config.packages.repl
-          ];
-          name = "config";
-          DIRENV_LOG_FORMAT = "";
-          # shellHook = ''
-          # ${config.pre-commit.installationScript}
-          # '';
-        };
-        formatter = pkgs.alejandra;
-      };
     };
 
   inputs = {
     # Core inputs
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    deploy-rs.url = "github:serokell/deploy-rs";
 
     # It's not really necessary but why would I write something that was already writter
     hardware.url = "github:nixos/nixos-hardware";
@@ -127,6 +109,9 @@
       url = "github:hyprwm/hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprlock.url = "github:hyprwm/hyprlock";
+    hypridle.url = "github:hyprwm/hypridle";
 
     hyprland-contrib = {
       url = "github:hyprwm/contrib";

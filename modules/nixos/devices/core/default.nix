@@ -19,8 +19,10 @@ in {
     ./locale.nix
     ./network.nix
     ./nix.nix
+    ./kernel.nix
     ./no-defaults.nix
     ./openssh.nix
+    ./power.nix
     ./security.nix
     ./shells
     ./sops.nix
@@ -28,6 +30,14 @@ in {
     ./specialisations.nix
   ];
 
+  # These are configs that needs to be everywhere
+  hardware.enableRedistributableFirmware = true;
+  programs.dconf.enable = true;
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
+  hardware.brillo.enable = true;
   # DON"T CHANGE THIS!
-  system.stateVersion = lib.mkDefault "23.11";
+  system.stateVersion = lib.mkDefault "24.05";
 }

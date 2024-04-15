@@ -8,21 +8,19 @@
   pinentry =
     if config.gtk.enable
     then {
-      packages = [pkgs.pinentry-gnome pkgs.gcr];
-      name = "gnome3";
+      package = pkgs.pinentry-gnome3;
     }
     else {
-      packages = [pkgs.pinentry-curses];
-      name = "curses";
+      package = pkgs.pinentry-curses;
     };
 in {
-  home.packages = pinentry.packages;
+  home.packages = [pkgs.gcr];
 
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
     sshKeys = ["AA076D8AA50C43E77837D8CFD573CAA74DD4F3B8"];
-    pinentryFlavor = pinentry.name;
+    pinentryPackage = pinentry.package;
     enableExtraSocket = true;
   };
 

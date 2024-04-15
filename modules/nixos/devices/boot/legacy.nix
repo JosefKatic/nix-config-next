@@ -5,11 +5,7 @@
 }: let
   cfg = config.device;
 in {
-  options.device.boot.legacy = {
-    enable = lib.mkEnableOption "Enable legacy boot loader";
-  };
-
-  config = lib.mkIf cfg.boot.legacy.enable {
+  config = lib.mkIf (cfg.boot.uefi.enable == false) {
     boot = {
       initrd = {
         systemd.enable = true;
@@ -23,7 +19,7 @@ in {
       };
     };
     fileSystems."/boot" = {
-      device = cfg.core.systemDrive.path;
+      device = cfg.core.storage.systemDrive.path;
       fsType = "btrfs";
       options = ["subvol=@boot"];
     };

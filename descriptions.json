@@ -1,0 +1,136 @@
+{
+  "boot": {
+    "legacy": { "enable": "Enables or disables legacy boot mode" },
+    "quietboot": { "enable": "Enables or disables quiet boot mode" },
+    "uefi": {
+      "enable": "Enables or disables UEFI boot mode",
+      "secureboot": "Enables or disables secure boot in UEFI mode"
+    }
+  },
+  "core": {
+    "disableDefaults": "Disables default settings if set to true",
+    "locale": {
+      "defaultLocale": "Sets the default locale for the system",
+      "supportedLocales": "List of supported locales",
+      "timeZone": "Sets the system's time zone"
+    },
+    "network": {
+      "domain": "Sets the network domain",
+      "services": {
+        "enableAvahi": "Enables or disables the Avahi service",
+        "enableNetworkManager": "Enables or disables the Network Manager service",
+        "enableResolved": "Enables or disables the systemd-resolved service"
+      }
+    },
+    "securityRules": { "enable": "Enables or disables security rules" },
+    "shells": {
+      "fish": { "enable": "Enables or disables the fish shell" },
+      "zsh": { "enable": "Enables or disables the zsh shell" }
+    },
+    "storage": {
+      "enablePersistence": "Enables or disables persistent storage",
+      "otherDrives": "List of other drives in the system",
+      "swapFile": {
+        "enable": "Enables or disables the swap file",
+        "path": "Sets the path for the swap file",
+        "size": "Sets the size for the swap file"
+      },
+      "systemDrive": {
+        "encrypted": {
+          "enable": "Enables or disables system drive encryption",
+          "path": "Sets the path for the encrypted system drive"
+        },
+        "name": "Sets the name for the system drive",
+        "path": "Sets the path for the system drive"
+      }
+    }
+  },
+  "desktop": {
+    "gamemode": { "enable": "Enables or disables game mode" },
+    "wayland": {
+      "desktopManager": {
+        "gnome": {
+          "enable": "Enables or disables the GNOME desktop manager"
+        },
+        "plasma6": {
+          "enable": "Enables or disables the Plasma 6 desktop manager"
+        }
+      },
+      "displayManager": {
+        "regreet": {
+          "enable": "Enables or disables the Regreet display manager",
+          "themes": {
+            "cursor": {
+              "name": "Sets the name for the cursor theme",
+              "package": "Sets the package for the cursor theme"
+            },
+            "gtk": {
+              "name": "Sets the name for the GTK theme",
+              "package": "Sets the package for the GTK theme"
+            },
+            "icons": {
+              "name": "Sets the name for the icon theme",
+              "package": "Sets the package for the icon theme"
+            }
+          }
+        }
+      },
+      "windowManager": {
+        "hyprland": {
+          "enable": "Enables or disables the Hyprland window manager"
+        },
+        "sway": { "enable": "Enables or disables the Sway window manager" }
+      }
+    }
+  },
+  "hardware": {
+    "bluetooth": {
+      "enable": "Enables or disables Bluetooth",
+      "enableManager": "Enables or disables the Bluetooth manager"
+    },
+    "cpu": {
+      "amd": { "enable": "Enables or disables AMD CPU support" },
+      "intel": { "enable": "Enables or disables Intel CPU support" }
+    },
+    "disks": {
+      "hdd": { "enable": "Enables or disables HDD support" },
+      "ssd": { "enable": "Enables or disables SSD support" }
+    },
+    "gpu": {
+      "amd": { "enable": "Enables or disables AMD GPU support" },
+      "intel": { "enable": "Enables or disables Intel GPU support" },
+      "nvidia": {
+        "enable": "Enables or disables Nvidia GPU support",
+        "package": "Sets the package for the Nvidia GPU support"
+      }
+    },
+    "misc": {
+      "trezor": { "enable": "Enables or disables the Trezor service" },
+      "xbox": { "enable": "Enables or disables the Xbox service" },
+      "yubikey": { "enable": "Enables or disables the YubiKey service" }
+    }
+  },
+  "server": {
+    "services": {
+      "acme": { "enable": "Enables or disables the ACME service" },
+      "fail2ban": { "enable": "Enables or disables the Fail2ban service" },
+      "freeipaServer": {
+        "enable": "Enables or disables the FreeIPA server service",
+        "router": "Sets the router for the FreeIPA server"
+      },
+      "keycloak": { "enable": "Enables or disables the Keycloak service" },
+      "nginx": { "enable": "Enables or disables the Nginx service" },
+      "postgresql": { "enable": "Enables or disables the PostgreSQL service" },
+      "teamspeak": { "enable": "Enables or disables the TeamSpeak service" }
+    }
+  },
+  "services": { "mysql": { "enable": "Enables or disables the MySQL service" } },
+  "utils": {
+    "autoUpgrade": { "enable": "Enables or disables automatic upgrades" },
+    "kdeconnect": { "enable": "Enables or disables the KDE Connect service" },
+    "virtualisation": {
+      "docker": { "enable": "Enables or disables Docker" },
+      "libvirtd": { "enable": "Enables or disables the libvirtd service" }
+    }
+  }
+}

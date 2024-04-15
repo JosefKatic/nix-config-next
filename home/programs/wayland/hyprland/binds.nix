@@ -1,4 +1,4 @@
-let
+{pkgs, ...}: let
   screenshotarea = "hyprctl keyword animation 'fadeOut,0,0,default'; grimblast --notify copysave area; hyprctl keyword animation 'fadeOut,1,4,default'";
 
   # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
@@ -15,6 +15,9 @@ let
     )
     10);
 in {
+  home.packages = with pkgs; [
+    brillo
+  ];
   wayland.windowManager.hyprland.settings = {
     # mouse movements
     bindm = [
@@ -29,7 +32,7 @@ in {
     in
       [
         # compositor commands
-        "$mod SHIFT, E, exec, pkill Hyprland"
+        "$mod SHIFT, E, exit"
         "$mod SHIFT, X, killactive,"
         "$mod, F, fullscreen,"
         "$mod, G, togglegroup,"
@@ -49,7 +52,7 @@ in {
         # logout menu
         "$mod, Escape, exec, wlogout -p layer-shell"
         # lock screen
-        "$mod, Return, exec, loginctl lock-session"
+        "$mod, backspace, exec, loginctl lock-session"
         # select area to perform OCR on
         "$mod, O, exec, run-as-service wl-ocr"
 

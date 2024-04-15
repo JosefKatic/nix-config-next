@@ -12,7 +12,7 @@ in {
     intel = {enable = lib.mkEnableOption "Enable Intel CPU support";};
   };
 
-  config = lib.mkIf config.hardware.enableRedistributableFirmware {
+  config = {
     hardware.cpu.amd.updateMicrocode = cfg.amd.enable;
     hardware.cpu.intel.updateMicrocode = cfg.intel.enable;
   };

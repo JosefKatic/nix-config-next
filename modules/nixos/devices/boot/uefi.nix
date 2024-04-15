@@ -36,5 +36,11 @@ in {
       device = "/dev/disk/by-label/EFI";
       fsType = "vfat";
     };
+
+    environment.persistence = lib.mkIf (cfg.core.storage.enablePersistence && cfg.boot.uefi.secureboot) {
+      "/persist" = {
+        directories = ["/etc/secureboot"];
+      };
+    };
   };
 }

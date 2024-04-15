@@ -1,1 +1,1 @@
-{imports = [./greetd.nix];}
+{imports = [./gdm.nix ./greetd.nix];}

@@ -1,1 +1,1 @@
-{imports = [./docker.nix ./libvirtd.nix];}
+{imports = [./docker.nix ./podman.nix ./libvirtd.nix];}

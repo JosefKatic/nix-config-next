@@ -17,9 +17,9 @@ in {
     enable = true;
 
     font = {
-      name = "Inter";
-      package = pkgs.google-fonts.override {fonts = ["Inter"];};
-      size = 9;
+      name = "Fira Sans";
+      package = pkgs.fira;
+      size = 12;
     };
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";

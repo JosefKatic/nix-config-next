@@ -52,19 +52,17 @@ in {
       "/persist" = {
         directories = [
           "/var/log"
-          "/var/lib/bluetooth"
           "/var/lib/nixos"
           "/var/lib/systemd"
-          "/var/lib/libvirt"
-          "/var/lib/nordvpn"
+          "/var/lib/docker"
           "/srv"
           "/etc/nixos"
-          "/etc/secureboot"
+          "/etc/NetworkManager/system-connections"
         ];
         files = ["/etc/machine-id"];
       };
     };
-
+    programs.fuse.userAllowOther = true;
     system.activationScripts.persistent-dirs.text = let
       mkHomePersist = user:
         lib.optionalString user.createHome ''

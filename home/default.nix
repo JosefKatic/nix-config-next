@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   self,
   pkgs,
@@ -17,12 +18,23 @@ in {
           };
       })
     ];
+    config = {
+      allowBroken = true;
+      allowUnfree = true;
+      allowUnfreePredicate = _: true;
+      permittedInsecurePackages = [
+        "electron-25.9.0"
+      ];
+    };
   };
   imports = [
     ./specialisations.nix
     ./terminal
     inputs.matugen.nixosModules.default
     inputs.nix-index-db.hmModules.nix-index
+    inputs.hyprlock.homeManagerModules.default
+    inputs.hypridle.homeManagerModules.default
+    inputs.nur.nixosModules.nur
     inputs.impermanence.nixosModules.home-manager.impermanence
     self.nixosModules.theme
   ];
@@ -44,15 +56,15 @@ in {
 
   home = {
     username = username;
-    homeDirectory = lib.mkDefault "/home/${username}";
-    stateVersion = lib.mkDefault "23.05";
+    homeDirectory = lib.mkDefault "/home/${config.home.username}";
+    stateVersion = lib.mkDefault "23.11";
     sessionPath = ["$HOME/.local/bin"];
     sessionVariables = {
       FLAKE = "$HOME/.flake-config";
     };
 
     persistence = {
-      "/persist/home/joka" = {
+      "/persist/home/${config.home.username}" = {
         directories = [
           "Documents"
           "Downloads"
@@ -67,10 +79,4 @@ in {
     };
   };
   # NEW
-  # disable manuals as nmd fails to build often
-  manual = {
-    html.enable = false;
-    json.enable = false;
-    manpages.enable = false;
-  };
 }

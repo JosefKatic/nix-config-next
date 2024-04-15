@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -6,8 +7,8 @@
   options.device.hardware.gpu.amd = {
     enable = lib.mkEnableOption "Enable AMD GPU support";
   };
-  config = {
-    services.xserver.videoDrivers = lib.mkDefault ["modesetting"];
+  config = lib.mkIf config.device.hardware.gpu.amd.enable {
+    services.xserver.videoDrivers = lib.mkDefault ["amdgpu"];
 
     hardware.opengl = {
       driSupport = lib.mkDefault true;

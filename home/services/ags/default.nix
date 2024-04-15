@@ -1,4 +1,5 @@
 {
+  self,
   inputs,
   pkgs,
   lib,
@@ -32,21 +33,24 @@ in {
     inputs.ags.homeManagerModules.default
   ];
 
-  programs.ags.enable = true;
-  home.packages = dependencies;
-  systemd.user.services.ags = {
-    Unit = {
-      Description = "Aylur's Gtk Shell";
-      PartOf = [
-        "tray.target"
-        "graphical-session.target"
-      ];
-    };
-    Service = {
-      Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
-      ExecStart = "${cfg.package}/bin/ags";
-      Restart = "on-failure";
-    };
-    Install.WantedBy = ["graphical-session.target"];
+  programs.ags = {
+    enable = false;
+    configDir = "${self}/home/services/ags";
   };
+  home.packages = dependencies;
+  # systemd.user.services.ags = {
+  #   Unit = {
+  #     Description = "Aylur's Gtk Shell";
+  #     PartOf = [
+  #       "tray.target"
+  #       "graphical-session.target"
+  #     ];
+  #   };
+  #   Service = {
+  #     Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
+  #     ExecStart = "${cfg.package}/bin/ags";
+  #     Restart = "on-failure";
+  #   };
+  #   Install.WantedBy = ["graphical-session.target"];
+  # };
 }

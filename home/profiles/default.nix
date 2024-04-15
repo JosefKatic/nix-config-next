@@ -7,7 +7,10 @@
 }: let
   extraSpecialArgs = {inherit inputs self;};
 
-  homeImports = {"joka@hirundo" = ["${self}/home" "${self}/home/profiles/hirundo" module_args];};
+  homeImports = {
+    "joka@hirundo" = ["${self}/home" "${self}/home/profiles/hirundo" module_args];
+    "joka@strix" = ["${self}/home" "${self}/home/profiles/strix" module_args];
+  };
 
   inherit (inputs.hm.lib) homeManagerConfiguration;
 in {
@@ -22,6 +25,11 @@ in {
         modules = homeImports."joka@hirundo";
         inherit pkgs extraSpecialArgs;
       };
+      "joka@strix" = homeManagerConfiguration {
+        modules = homeImports."joka@strix";
+        inherit pkgs extraSpecialArgs;
+      };
     });
+    homeManagerModules.eww-hyprland = import ../services/eww;
   };
 }

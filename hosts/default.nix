@@ -2,37 +2,72 @@
   inputs,
   outputs,
   self,
+  lib,
   sharedModules,
   homeImports,
   ...
 }: let
   specialArgs = {inherit inputs self;};
+  deviceNames = import "${self}/.config/nixos/default.nix";
 in {
-  flake.nixosConfigurations = let
-    inherit (inputs.nixpkgs.lib) nixosSystem;
-    list = import ./devices.nix;
-    deviceNames = builtins.attrNames list.devices;
-    deviceConfigurations =
-      map (deviceName: {
-        name = deviceName;
-        value = nixosSystem {
-          specialArgs = {inherit inputs outputs self;};
-          modules =
-            [
-              list.devices.${deviceName}
-              {
-                home-manager = {
-                  users.joka.imports = homeImports."joka@${deviceName}";
-                  extraSpecialArgs = specialArgs;
-                };
-                networking.hostName = deviceName;
-                imports = ["${self}/hosts/${deviceName}/hardware-configuration.nix"];
-              }
-            ]
-            ++ sharedModules;
-        };
-      })
-      deviceNames;
-  in
-    builtins.listToAttrs deviceConfigurations;
+  flake = {
+    nixosConfigurations = let
+      inherit (inputs.nixpkgs.lib) nixosSystem;
+      deviceConfigurations =
+        map (deviceName: {
+          name = deviceName;
+          value = nixosSystem {
+            specialArgs = {inherit inputs outputs self;};
+            modules =
+              [
+                {
+                  home-manager = {
+                    users.joka.imports = homeImports."joka@${deviceName}";
+                    extraSpecialArgs = specialArgs;
+                  };
+                  # services.flatpak.enable = true;
+                  services.nordvpn.enable = true;
+                  networking.hostName = deviceName;
+                  imports = [
+                    "${self}/.config/nixos/${deviceName}/default.nix"
+                    "${self}/hosts/${deviceName}/hardware-configuration.nix"
+                  ];
+                }
+              ]
+              ++ sharedModules;
+          };
+        })
+        deviceNames;
+    in
+      builtins.listToAttrs deviceConfigurations;
+
+    deploy.nodes = let
+      deployNodes =
+        map (deviceName: {
+          name = deviceName;
+          value = let
+            device = self.nixosConfigurations.${deviceName};
+            deployHostPlatform = inputs.deploy-rs.lib.${device.config.nixpkgs.hostPlatform.system};
+            hasOptinPersistence = device.config.environment.persistence ? "/persist";
+          in {
+            hostname = "${deviceName}";
+            sshOpts = ["-i" "${lib.optionalString hasOptinPersistence "/persist"}/etc/ssh/ssh_host_ed25519_key"];
+            fastConnection = true;
+            interactiveSudo = true;
+            profiles = {
+              system = {
+                sshUser = "joka";
+                path = deployHostPlatform.activate.nixos device;
+                user = "root";
+              };
+            };
+          };
+        })
+        deviceNames;
+    in
+      builtins.listToAttrs deployNodes;
+
+    # This is highly advised, and will prevent many possible mistakes
+    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
+  };
 }

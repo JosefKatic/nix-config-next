@@ -3,6 +3,7 @@
   lib,
   config,
   wallpapers,
+  self,
   ...
 }: {
   # light/dark specialisations
@@ -28,12 +29,11 @@
   };
 
   theme = {
-    # specific to unsplash
     wallpaper = wallpapers.astronaut-minimalism;
   };
 
   programs.matugen = {
-    enable = false;
+    enable = true;
     wallpaper = config.theme.wallpaper;
   };
 }

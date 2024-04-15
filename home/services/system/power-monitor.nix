@@ -22,10 +22,8 @@
     	# read the current state
     	if [[ $(cat "$BAT_STATUS") == "Discharging" ]]; then
       	profile=$BAT_PROFILE
-        hyprctl --batch 'keyword decoration:blur:enabled false; keyword animations:enabled false'
     	else
     		profile=$AC_PROFILE
-        hyprctl --batch 'keyword decoration:blur:enabled true; keyword animations:enabled true'
     	fi
 
     	# set the new profile
@@ -51,6 +49,8 @@ in {
   # Power state monitor. Switches Power profiles based on charging state.
   # Plugged in - performance
   # Unplugged - power-saver
+  home.packages = dependencies;
+
   systemd.user.services.power-monitor = {
     Unit = {
       Description = "Power Monitor";

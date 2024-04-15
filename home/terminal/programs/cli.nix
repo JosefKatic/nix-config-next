@@ -20,5 +20,6 @@
   programs = {
     eza.enable = true;
     ssh.enable = true;
+    bash.enable = true;
   };
 }

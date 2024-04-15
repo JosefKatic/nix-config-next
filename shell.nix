@@ -4,7 +4,6 @@
   perSystem = {
     config,
     pkgs,
-    inputs',
     ...
   }: {
     devShells.default = pkgs.mkShell {
@@ -18,13 +17,13 @@
         ssh-to-age
         gnupg
         age
-        config.packages.repl
       ];
       name = "config";
       DIRENV_LOG_FORMAT = "";
-      shellHook = ''
-        ${config.pre-commit.installationScript}
-      '';
+      # shellHook = ''
+      # ${config.pre-commit.installationScript}
+      # '';
     };
+    formatter = pkgs.alejandra;
   };
 }

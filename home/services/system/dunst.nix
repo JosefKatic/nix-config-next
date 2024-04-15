@@ -5,9 +5,9 @@
 }: {
   # notification daemon
   services.dunst = let
-    xcolors = pkgs.lib.colors.xcolors config.programs.matugen.theme.colors;
-    variant = config.theme.name;
-    c = xcolors.colors.${variant};
+    # xcolors = config.programs.matugen.theme.colors;
+    # variant = config.theme.name;
+    # c = xcolors.colors.${variant};
   in {
     enable = true;
     inherit (config.gtk) iconTheme;
@@ -39,21 +39,21 @@
 
       fullscreen_delay_everything = {fullscreen = "delay";};
 
-      urgency_critical = {
-        background = c.error_container;
-        foreground = c.on_error_container;
-        frame_color = c.error;
-      };
-      urgency_low = {
-        background = c.secondary_container;
-        foreground = c.on_secondary_container;
-        frame_color = c.secondary;
-      };
-      urgency_normal = {
-        background = c.primary_container;
-        foreground = c.on_primary_container;
-        frame_color = c.primary;
-      };
+      # urgency_critical = {
+        # background = c.error_container;
+        # foreground = c.on_error_container;
+        # frame_color = c.error;
+      # };
+      # urgency_low = {
+        # background = c.secondary_container;
+        # foreground = c.on_secondary_container;
+        # frame_color = c.secondary;
+      # };
+      # urgency_normal = {
+        # background = c.primary_container;
+        # foreground = c.on_primary_container;
+        # frame_color = c.primary;
+      # };
     };
   };
 }

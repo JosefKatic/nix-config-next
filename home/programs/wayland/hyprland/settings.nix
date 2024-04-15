@@ -13,7 +13,6 @@ in {
       # set cursor for HL itself
       "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
       "systemctl --user start clight"
-      "swaylock"
     ];
 
     general = {
@@ -27,33 +26,49 @@ in {
     };
 
     decoration = {
-      rounding = 16;
+      rounding = 5;
       blur = {
         enabled = true;
-        brightness = 1.0;
-        contrast = 1.0;
-        noise = 0.02;
-
+        size = 5;
         passes = 3;
-        size = 10;
+        new_optimizations = true;
+        ignore_opacity = true;
       };
 
       drop_shadow = true;
       shadow_ignore_window = true;
-      shadow_offset = "0 2";
-      shadow_range = 20;
+      shadow_offset = "3 3";
+      shadow_range = 12;
       shadow_render_power = 3;
       "col.shadow" = "rgba(00000055)";
     };
 
     animations = {
       enabled = true;
-      animation = [
-        "border, 1, 2, default"
-        "fade, 1, 4, default"
-        "windows, 1, 3, default, popin 80%"
-        "workspaces, 1, 2, default, slide"
+      bezier = [
+        "easein,0.11, 0, 0.5, 0"
+        "easeout,0.5, 1, 0.89, 1"
+        "easeinout,0.45, 0, 0.55, 1"
       ];
+
+      animation = [
+        "windowsIn,1,3,easeout,slide"
+        "windowsOut,1,3,easein,slide"
+        "windowsMove,1,3,easeout"
+        "workspaces,1,2,easeout,slide"
+        "fadeIn,1,3,easeout"
+        "fadeOut,1,3,easein"
+        "fadeSwitch,1,3,easeout"
+        "fadeShadow,1,3,easeout"
+        "fadeDim,1,3,easeout"
+        "border,1,3,easeout"
+      ];
+      # animation = [
+      # "border, 1, 2, default"
+      # "fade, 1, 4, default"
+      # "windows, 1, 3, default, popin 80%"
+      # "workspaces, 1, 2, default, slide"
+      # ];
     };
 
     group = {
@@ -67,8 +82,8 @@ in {
     };
 
     input = {
-      kb_layout = "ro";
-
+      kb_layout = "cz";
+      kb_variant = "coder";
       # focus change on cursor move
       follow_mouse = 1;
       accel_profile = "flat";
@@ -97,6 +112,7 @@ in {
     # touchpad gestures
     gestures = {
       workspace_swipe = true;
+      workspace_swipe_fingers = 4;
       workspace_swipe_forever = true;
     };
     xwayland.force_zero_scaling = true;

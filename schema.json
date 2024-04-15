@@ -1,0 +1,136 @@
+{
+  "boot": {
+    "legacy": { "enable": "boolean" },
+    "quietboot": { "enable": "boolean" },
+    "uefi": {
+      "enable": "boolean",
+      "secureboot": "boolean"
+    }
+  },
+  "core": {
+    "disableDefaults": "boolean",
+    "locale": {
+      "defaultLocale": "string",
+      "supportedLocales": "string[]",
+      "timeZone": "string"
+    },
+    "network": {
+      "domain": "string",
+      "services": {
+        "enableAvahi": "boolean",
+        "enableNetworkManager": "boolean",
+        "enableResolved": "boolean"
+      }
+    },
+    "securityRules": { "enable": "boolean" },
+    "shells": {
+      "fish": { "enable": "boolean" },
+      "zsh": { "enable": "boolean" }
+    },
+    "storage": {
+      "enablePersistence": "boolean",
+      "otherDrives": "drives[]",
+      "swapFile": {
+        "enable": "boolean",
+        "path": "string",
+        "size": "int"
+      },
+      "systemDrive": {
+        "encrypted": {
+          "enable": "boolean",
+          "path": "string"
+        },
+        "name": "string",
+        "path": "string"
+      }
+    }
+  },
+  "desktop": {
+    "gamemode": { "enable": "boolean" },
+    "wayland": {
+      "desktopManager": {
+        "gnome": {
+          "enable": "boolean"
+        },
+        "plasma6": {
+          "enable": "boolean"
+        }
+      },
+      "displayManager": {
+        "regreet": {
+          "enable": "boolean",
+          "themes": {
+            "cursor": {
+              "name": "string",
+              "package": "string"
+            },
+            "gtk": {
+              "name": "string",
+              "package": "string"
+            },
+            "icons": {
+              "name": "string",
+              "package": "string"
+            }
+          }
+        }
+      },
+      "windowManager": {
+        "hyprland": {
+          "enable": "boolean"
+        },
+        "sway": { "enable": "boolean" }
+      }
+    }
+  },
+  "hardware": {
+    "bluetooth": {
+      "enable": "boolean",
+      "enableManager": "boolean"
+    },
+    "cpu": {
+      "amd": { "enable": "boolean" },
+      "intel": { "enable": "boolean" }
+    },
+    "disks": {
+      "hdd": { "enable": "boolean" },
+      "ssd": { "enable": "boolean" }
+    },
+    "gpu": {
+      "amd": { "enable": "boolean" },
+      "intel": { "enable": "boolean" },
+      "nvidia": {
+        "enable": "boolean",
+        "package": "string"
+      }
+    },
+    "misc": {
+      "trezor": { "enable": "boolean" },
+      "xbox": { "enable": "boolean" },
+      "yubikey": { "enable": "boolean" }
+    }
+  },
+  "server": {
+    "services": {
+      "acme": { "enable": "boolean" },
+      "fail2ban": { "enable": "boolean" },
+      "freeipaServer": {
+        "enable": "boolean",
+        "router": "string"
+      },
+      "keycloak": { "enable": "boolean" },
+      "nginx": { "enable": "boolean" },
+      "postgresql": { "enable": "boolean" },
+      "teamspeak": { "enable": "boolean" }
+    }
+  },
+  "services": { "mysql": { "enable": "boolean" } },
+  "utils": {
+    "autoUpgrade": { "enable": "boolean" },
+    "kdeconnect": { "enable": "boolean" },
+    "virtualisation": {
+      "docker": { "enable": "boolean" },
+      "libvirtd": { "enable": "boolean" }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 {
+  self,
   config,
   inputs,
   lib,
@@ -6,8 +7,7 @@
   pkgs,
   deviceName,
   ...
-}: let
-in {
+}: {
   imports = [
     ./boot
     ./core
@@ -15,5 +15,6 @@ in {
     ./desktop
     ./utils
     ./users
+    ./services
   ];
 }

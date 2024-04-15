@@ -9,7 +9,6 @@
     alejandra
     deadnix
     statix
-    self.packages.${pkgs.system}.repl
   ];
 
   programs.direnv = {

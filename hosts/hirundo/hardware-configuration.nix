@@ -2,17 +2,21 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
+  self,
   config,
   lib,
   pkgs,
   modulesPath,
+  options,
   ...
 }: {
   boot.initrd.availableKernelModules = ["nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
   boot.kernelModules = ["kvm-amd"];
   boot.resumeDevice = "/dev/disk/by-label/system";
   boot.kernelParams = ["resume_offset=23078144"];
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  environment.etc."device.json" = {
+    text = builtins.toJSON options.device;
+  };
 }

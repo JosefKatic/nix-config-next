@@ -34,5 +34,12 @@ in {
       spiceUSBRedirection.enable = cfg.libvirtd.enable;
     };
     services.spice-vdagentd.enable = cfg.libvirtd.enable;
+    environment.persistence = lib.mkIf config.device.core.storage.enablePersistence {
+      "/persist" = {
+        directories = [
+          "/var/lib/libvirt"
+        ];
+      };
+    };
   };
 }

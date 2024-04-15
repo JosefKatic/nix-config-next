@@ -14,22 +14,20 @@
   vars = ''
     XDG_DATA_DIRS="$XDG_DATA_DIRS:${lib.concatStringsSep ":" homeSharePaths}"'';
 
-  # TODO: this should not be coupled to my home config
-  # Or at least have some kind of fallback values if it's not present on this machine
   gtkTheme = {
     name =
       if variant == "light"
       then "adw-gtk3"
       else "adw-gtk3-dark";
-    package = pkgs.adw-gtk3;
+    package = "adw-gtk3";
   };
   iconTheme = {
     name = "Adwaita";
-    package = pkgs.gnome.adwaita-icon-theme;
+    package = "gnome.adwaita-icon-theme";
   };
   cursorTheme = {
-    package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Classic";
+    package = "bibata-cursors";
   };
 
   sway-kiosk = command: "${lib.getExe pkgs.sway} --unsupported-gpu --config ${
@@ -53,7 +51,7 @@ in {
           default = gtkTheme.name;
         };
         package = lib.mkOption {
-          type = lib.types.path;
+          type = lib.types.str;
           default = gtkTheme.package;
         };
       };
@@ -63,7 +61,7 @@ in {
           default = iconTheme.name;
         };
         package = lib.mkOption {
-          type = lib.types.path;
+          type = lib.types.str;
           default = iconTheme.package;
         };
       };
@@ -73,7 +71,7 @@ in {
           default = cursorTheme.name;
         };
         package = lib.mkOption {
-          type = lib.types.path;
+          type = lib.types.str;
           default = cursorTheme.package;
         };
       };
@@ -82,9 +80,9 @@ in {
   config = lib.mkIf cfg.enable {
     users.extraUsers.greeter = {
       packages = [
-        cfg.themes.gtk.package
-        cfg.themes.icons.package
-        cfg.themes.cursor.package
+        pkgs.${gtkTheme.package}
+        pkgs.${iconTheme.package}
+        pkgs.${cursorTheme.package}
       ];
       # For caching and such
       home = "/tmp/greeter-home";
@@ -95,9 +93,9 @@ in {
       enable = true;
       settings = {
         GTK = {
-          icon_theme_name = cfg.themes.icons.name;
-          theme_name = cfg.themes.gtk.name;
-          cursor_theme_name = cfg.themes.cursor.name;
+          icon_theme_name = iconTheme.name;
+          theme_name = gtkTheme.name;
+          cursor_theme_name = cursorTheme.name;
         };
         background = {
           path = homeCfgs.joka.theme.wallpaper;

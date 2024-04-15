@@ -19,7 +19,7 @@ in {
         sharedModules = [
           {
             home-manager = {
-              useGlobalPkgs = true;
+              # useGlobalPkgs = true;
               useUserPackages = true;
             };
           }
@@ -36,6 +36,7 @@ in {
 
           self.nixosModules.device
           self.nixosModules.theme
+          self.nixosModules.nordvpn
         ];
       };
     }
@@ -45,6 +46,7 @@ in {
     nixosModules = {
       device = import ./nixos/devices;
       theme = import ./theme;
+      nordvpn = import ./nordvpn.nix;
     };
   };
 }

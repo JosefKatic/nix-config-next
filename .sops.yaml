@@ -10,31 +10,45 @@ keys:
     - &regulus age1qcjfexjn80d3qfuu04k98yxqez7ujary6e4720506afh4dyg6eessp3208
     - &strix age1nuvx2zd6keg07mjt8n88rxzuavuzs75yzydy477ae6fyg4g4eu4q09k2jz
 creation_rules:
+  - path_regex: secrets/services/auth/secrets.ya?ml$
+    key_groups:
+      - age:
+          - *strix
+          - *hirundo
+        pgp:
+          - *joka
+  - path_regex: secrets/services/headscale/secrets.ya?ml$
+    key_groups:
+      - age:
+          - *strix
+          - *hirundo
+        pgp:
+          - *joka
   - path_regex: hosts/strix/secrets.ya?ml$
     key_groups:
-    - age:
-      - *strix
-      pgp:
-      - *joka
+      - age:
+          - *strix
+        pgp:
+          - *joka
   - path_regex: hosts/falco/secrets.ya?ml$
     key_groups:
-    - age:
-      - *falco
-      pgp:
-      - *joka
-  - path_regex: hosts/hirundo/secrets.ya?ml$
+      - age:
+          - *falco
+        pgp:
+          - *joka
+  - path_regex: secrets/joka/secrets.ya?ml$
     key_groups:
-    - age:
-      - *hirundo
-      pgp:
-      - *joka
+      - age:
+          - *hirundo
+        pgp:
+          - *joka
   - path_regex: hosts/common/secrets.ya?ml$
     key_groups:
-    - age:
-      - *alcedo
-      - *hirundo
-      - *falco
-      - *regulus
-      - *strix
-      pgp:
-      - *joka
+      - age:
+          - *alcedo
+          - *hirundo
+          - *falco
+          - *regulus
+          - *strix
+        pgp:
+          - *joka

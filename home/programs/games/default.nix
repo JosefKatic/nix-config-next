@@ -9,7 +9,7 @@
     inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin
     gamescope
     prismlauncher
-    lutris.override
+    (lutris.override
     {
       extraPkgs = p: [
         p.wineWowPackages.staging
@@ -17,11 +17,11 @@
         p.libjpeg
         p.gnome.zenity
       ];
-    }
+    })
     winetricks
   ];
 
-  persistence = {
+  home.persistence = {
     "/persist/home/joka" = {
       allowOther = true;
       directories = [

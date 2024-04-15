@@ -39,16 +39,19 @@
       oops = "checkout --";
     };
 
-    ignores = ["*~" "*.swp" "*result*" ".direnv" "node_modules"];
-
+    ignores = ["*~" "*.swp" "*result*" ".direnv" ".idea" ".vscode" "node_modules"];
+    userName = "Josef Katič";
+    userEmail = "josef@joka00.dev";
     signing = {
-      key = "${config.home.homeDirectory}/.ssh/id_ed25519";
+      key = "0x8417626CCED5035D";
+      gpgPath = "${config.programs.gpg.package}/bin/gpg2";
       signByDefault = true;
     };
-
-    extraConfig.gpg.format = "ssh";
-
-    userEmail = "josef@joka00.dev";
-    userName = "Josef Katič";
+    extraConfig = {
+      feature.manyFiles = true;
+      init.defaultBranch = "main";
+      commit.gpgSign = true;
+    };
+    lfs.enable = true;
   };
 }

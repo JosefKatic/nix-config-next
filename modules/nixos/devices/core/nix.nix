@@ -7,6 +7,9 @@
 }: {
   environment.systemPackages = [
     pkgs.git
+    inputs.matugen.packages.${pkgs.system}.default
+    pkgs.yubikey-manager-qt
+    pkgs.libyubikey
   ];
 
   nh = {
@@ -21,11 +24,9 @@
   nix = {
     settings = {
       substituters = [
-        "https://cache.joka00.dev"
         "https://anyrun.cachix.org"
       ];
       trusted-public-keys = [
-        "cache.joka00.dev:ELw0BiKSycBVWYgv0lFW+Uqjez0Y9gnKEh7sQ/8eHvE="
         "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       ];
       trusted-users = ["root" "@wheel" "nix-ssh"];
@@ -58,6 +59,7 @@
   nixpkgs = {
     overlays = [
       (final: prev: {
+        _389-ds-base = self.packages.${pkgs.system}."_389-ds-base";
         lib =
           prev.lib
           // {
@@ -66,6 +68,7 @@
       })
     ];
     config = {
+      allowBroken = true;
       allowUnfree = true;
       permittedInsecurePackages = [
         "electron-25.9.0"

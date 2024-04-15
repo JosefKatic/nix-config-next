@@ -10,6 +10,10 @@
     # productivity
     obsidian
     xournalpp
+    jetbrains-toolbox
+    teamspeak_client
+    discord
+    trezor-suite
   ];
 
   programs.vscode.enable = true;

@@ -8,11 +8,6 @@
 in {
   options.device.hardware.gpu.nvidia = {
     enable = lib.mkEnableOption "Enable Nvidia GPU";
-    package = lib.mkOption {
-      type = lib.types.path;
-      default = pkgs.linuxKernel.packages.linux_zen.nvidia_x11;
-      description = "Nvidia driver package";
-    };
   };
   config = lib.mkIf cfg.nvidia.enable {
     services.xserver = {videoDrivers = ["nvidia"];};
@@ -29,7 +24,7 @@ in {
         modesetting.enable = true;
         open = true;
         nvidiaSettings = true;
-        package = cfg.nvidia.package;
+        package = pkgs.linuxKernel.packages.${config.device.core.kernel}.nvidia_x11;
       };
     };
   };

@@ -7,7 +7,7 @@
   options.device.hardware.gpu.intel = {
     enable = lib.mkEnableOption "Enable Intel GPU support";
   };
-  config = {
+  config = lib.mkIf config.device.hardware.gpu.intel.enable {
     boot.initrd.kernelModules = ["i915"];
 
     environment.variables = {
