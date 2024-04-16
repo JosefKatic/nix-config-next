@@ -11,8 +11,8 @@
 writeShellScriptBin "deploySystem" ''
   host="$1"
   shift
-  mkdir -p /tmp/deploy
-  cd /tmp/deploy
+  mkdir -p /tmp/deploy/flake
+  cd /tmp/deploy/flake
   rm -r .config
    ${lib.getExe git}  -C . pull || git clone https://github.com/JosefKatic/nix-config-next.git .
 

@@ -50,6 +50,10 @@ in {
         users = ["deploy"];
         commands = [
           {
+            command = "${lib.getExe pkgs.deploy-rs}";
+            options = ["NOPASSWD"];
+          }
+          {
             command = "/run/current-system/sw/bin/nixos-rebuild";
             options = ["NOPASSWD"];
           }

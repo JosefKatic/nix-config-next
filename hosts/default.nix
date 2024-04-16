@@ -55,7 +55,7 @@ in {
             profiles = {
               system = {
                 path = deployHostPlatform.activate.nixos device;
-                user = "root";
+                user = "deploy";
               };
             };
           };
