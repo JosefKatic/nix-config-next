@@ -10,6 +10,7 @@
 }:
 writeShellScriptBin "deploySystem" ''
   host="$1"
+  shift
   mkdir -p /tmp/deploy
   cd /tmp/deploy
   rm -r .config
