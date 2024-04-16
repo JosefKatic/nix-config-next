@@ -5,16 +5,20 @@
   writeShellScriptBin,
   deploy-rs,
   lib,
+  git,
+  direnv
 }:
-writeShellScriptBin "deploy" ''
+writeShellScriptBin "deploySystem" ''
   host="$1"
-  shift
-
+  mkdir -p /tmp/deploy
+  cd /tmp/deploy
+   ${lib.getExe git}  -C . pull || git clone https://github.com/JosefKatic/nix-config-next.git .
   prefetch-config
 
   if [ -z "$host" ]; then
       echo "No host to deploy"
       exit 2
   fi
-  ${lib.getExe deploy-rs} $DEPLOY_FLAKE#$host $@
+  ${lib.getExe deploy-rs} .#$host $@
+
 ''

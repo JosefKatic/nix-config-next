@@ -10,7 +10,7 @@ in {
   options.device.core.locale = {
     defaultLocale = lib.mkOption {
       type = options.i18n.defaultLocale.type;
-      default = "en_US.UTF-8";
+      default = "en_US.UTF-8/UTF-8";
     };
     supportedLocales = lib.mkOption {
       type = options.i18n.supportedLocales.type;

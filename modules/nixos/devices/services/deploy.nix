@@ -13,13 +13,12 @@
   config = lib.mkIf config.device.server.services.deploy.enable {
     users.users.deploy = {
       isSystemUser = true;
-      home = "/var/deploy";
-      createHome = true;
-      extraGroups = ["deploy"];
-      shell = pkgs.bash;
+      useDefaultShell = true;
       group = "deploy";
+      home = "/tmp/deploy";
+      createHome = true;
+      openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH1X3Jl+Vrt02GIhzgxokACfRueZXthgo5hlUCTmrWsY deploy"];
     };
-
     users.groups.deploy = {};
     environment.persistence = lib.mkIf config.device.core.storage.enablePersistence {
       "/persist" = {
@@ -34,7 +33,7 @@
     };
 
     environment.systemPackages = [
-      self.packages.${pkgs.system}.deploy
+      self.packages.${pkgs.system}.deploySystem
       self.packages.${pkgs.system}.prefetchConfig
     ];
   };

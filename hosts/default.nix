@@ -51,12 +51,9 @@ in {
             hasOptinPersistence = device.config.environment.persistence ? "/persist";
           in {
             hostname = "${deviceName}";
-            sshOpts = ["-i" "${lib.optionalString hasOptinPersistence "/persist"}/etc/ssh/ssh_host_ed25519_key"];
             fastConnection = true;
-            interactiveSudo = true;
             profiles = {
               system = {
-                sshUser = "joka";
                 path = deployHostPlatform.activate.nixos device;
                 user = "root";
               };

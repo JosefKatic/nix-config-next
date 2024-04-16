@@ -33,11 +33,6 @@ in {
     users.mutableUsers = false;
     # Loop
 
-    users.users.root.openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGQsZc3jXTE6h1VsbCjYP+VlQN1ouBO5t/fhNImWQBsW"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQSA9z9P7MXhY97IHi6IJYGtxGMp6EsRrcslp98P+KL"
-    ];
-
     users.extraUsers.nix-deploy = {
       isNormalUser = true;
       shell = pkgs.bash;
@@ -52,11 +47,15 @@ in {
 
     security.sudo.extraRules = [
       {
-        users = ["nixos-deploy"];
+        users = ["deploy"];
         commands = [
           {
-            command = "${lib.getExe pkgs.deploy-rs}";
-            options = ["SETENV" "NOPASSWD"];
+            command = "/run/current-system/sw/bin/nixos-rebuild";
+            options = ["NOPASSWD"];
+          }
+          {
+            command = "/run/current-system/bin/switch-to-configuration";
+            options = ["NOPASSWD"];
           }
         ];
       }
@@ -74,7 +73,7 @@ in {
           "network"
           "i2c"
         ]
-        # ++ ifTheyExist [
+        ++ ifTheyExist [
           "minecraft"
           "wireshark"
           "mysql"

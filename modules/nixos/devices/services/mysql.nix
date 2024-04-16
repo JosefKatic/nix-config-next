@@ -4,8 +4,8 @@
   pkgs,
   ...
 }: {
-  options.device.services.mysql.enable = lib.mkEnableOption "Enable postgresql";
-  config = lib.mkIf config.device.services.mysql.enable {
+  options.device.server.services.mysql.enable = lib.mkEnableOption "Enable postgresql";
+  config = lib.mkIf config.device.server.services.mysql.enable {
     services.mysql = {
       enable = true;
       package = pkgs.mariadb;

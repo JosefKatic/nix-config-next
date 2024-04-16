@@ -17,6 +17,7 @@
         ssh-to-age
         gnupg
         age
+        deploy-rs
       ];
       name = "config";
       DIRENV_LOG_FORMAT = "";

@@ -8,12 +8,12 @@
       };
     };
     core = {
+      disableDefaults = true;
       locale = {
         defaultLocale = "en_US.UTF-8";
         supportedLocales = ["en_US.UTF-8/UTF-8" "cs_CZ.UTF-8/UTF-8"];
         timeZone = "Europe/Prague";
       };
-      kernel = "linux_zen";
       network = {
         domain = "clients.joka00.dev";
         services = {
@@ -22,10 +22,16 @@
           enableResolved = true;
         };
       };
-      shells = {fish = {enable = true;};};
+      securityRules = {enable = true;};
+      shells = {
+        fish = {enable = true;};
+        zsh = {enable = false;};
+      };
       storage = {
         enablePersistence = true;
+        otherDrives = [];
         swapFile = {
+          enable = true;
           path = "/swap/swapfile";
           size = 18;
         };
@@ -42,21 +48,54 @@
     desktop = {
       gamemode = {enable = true;};
       wayland = {
+        desktopManager = {
+          gnome = {enable = false;};
+          plasma6 = {enable = false;};
+        };
         displayManager = {
           gdm = {enable = true;};
-          regreet = {enable = false;};
+          regreet = {
+            enable = false;
+            themes = {
+              cursor = {
+                name = "";
+                package = "";
+              };
+              gtk = {
+                name = "";
+                package = "";
+              };
+              icons = {
+                name = "";
+                package = "";
+              };
+            };
+          };
         };
         windowManager = {
           hyprland = {enable = true;};
-          sway = {enable = true;};
+          sway = {enable = false;};
         };
       };
     };
     hardware = {
-      bluetooth = {enable = true;};
-      cpu = {amd = {enable = true;};};
-      disks = {ssd = {enable = true;};};
-      gpu = {amd = {enable = true;};};
+      bluetooth = {
+        enable = true;
+        enableManager = false;
+      };
+      cpu = {
+        amd = {enable = true;};
+        intel = {enable = false;};
+      };
+      disks = {
+        hdd = {enable = false;};
+        ssd = {enable = true;};
+      };
+      gpu = {
+        amd = {enable = true;};
+        intel = {enable = false;};
+        nvidia = {enable = false;};
+      };
       misc = {
         trezor = {enable = true;};
         xbox = {enable = true;};
@@ -65,9 +104,15 @@
     };
     server = {
       services = {
-        deploy = {
-          enable = true;
-        };
+        acme = {enable = false;};
+        fail2ban = {enable = false;};
+        freeipaServer = {enable = false;};
+        keycloak = {enable = false;};
+        mysql = {enable = false;};
+        nginx = {enable = false;};
+        postgresql = {enable = false;};
+        teamspeak = {enable = false;};
+        deploy = {enable = true;};
       };
     };
     utils = {

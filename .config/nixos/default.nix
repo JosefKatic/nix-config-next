@@ -1,1 +1,1 @@
-[ "hirundo" ]
+[ "hirundo" "strix" ]
