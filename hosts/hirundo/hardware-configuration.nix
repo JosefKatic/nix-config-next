@@ -8,15 +8,24 @@
   pkgs,
   modulesPath,
   options,
+  wallpapers,
   ...
 }: {
-  boot.initrd.availableKernelModules = ["nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
+  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
   boot.kernelModules = ["kvm-amd"];
   boot.resumeDevice = "/dev/disk/by-label/system";
   boot.kernelParams = ["resume_offset=23078144"];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  programs.adb.enable = true;
   environment.etc."device.json" = {
     text = builtins.toJSON options.device;
+  };
+  theme = {
+    wallpaper = wallpapers.astronaut-minimalism;
+    colorscheme = {
+      type = "tonal-spot";
+      source = config.theme.wallpaper;
+    };
   };
 }

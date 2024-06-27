@@ -13,6 +13,7 @@
       systems = ["x86_64-linux" "aarch64-linux"];
 
       imports = [
+        ./overlays
         ./shell.nix
         ./pkgs
         ./home/profiles
@@ -32,6 +33,10 @@
 
     # It's not really necessary but why would I write something that was already writter
     hardware.url = "github:nixos/nixos-hardware";
+
+    nix-colors.url = "github:misterio77/nix-colors";
+
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -74,20 +79,17 @@
     };
 
     matugen = {
-      url = "github:InioX/matugen/module";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:/InioX/Matugen";
     };
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "fu";
     };
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "fu";
     };
 
     # Programs
@@ -106,12 +108,10 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
     };
-
-    hyprlock.url = "github:hyprwm/hyprlock";
-    hypridle.url = "github:hyprwm/hypridle";
 
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
@@ -123,11 +123,13 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    hyprpaper.url = "github:hyprwm/hyprpaper";
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+    };
 
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
+      inputs.hyprland.follows = "hyprland";
     };
 
     # NUR
@@ -139,5 +141,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
+    web.url = "github:JosefKatic/web";
   };
 }

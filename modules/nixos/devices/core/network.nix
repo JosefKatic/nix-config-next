@@ -43,14 +43,14 @@ in {
     networking = {
       domain = cfg.network.domain;
       # implement using DNS
-      extraHosts = lib.mkIf (config.device.server.services.freeipaServer.enable == false) ''
+      extraHosts = lib.mkIf (config.device.server.auth.freeipa.enable == false) ''
         100.84.29.49 ipa01.de.auth.joka00.dev
       '';
       # extraHosts = import ./blocker/etc-hosts.nix;
       firewall = {
+        enable = true;
         trustedInterfaces = ["tailscale0"];
         checkReversePath = "loose";
-
         allowedUDPPorts = [
           config.services.tailscale.port
         ];
@@ -60,8 +60,6 @@ in {
         dns = "systemd-resolved";
       };
     };
-    systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
-
     services = {
       tailscale = {
         enable = true;

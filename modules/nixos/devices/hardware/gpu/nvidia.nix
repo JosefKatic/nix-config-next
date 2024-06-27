@@ -12,8 +12,7 @@ in {
   config = lib.mkIf cfg.nvidia.enable {
     services.xserver = {videoDrivers = ["nvidia"];};
     hardware = {
-      opengl = {
-        driSupport32Bit = true;
+      graphics = {
         extraPackages = with pkgs; [
           vaapiVdpau
           libvdpau-va-gl

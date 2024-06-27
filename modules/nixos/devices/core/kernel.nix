@@ -15,5 +15,6 @@ in {
 
   config = {
     boot.kernelPackages = pkgs.linuxKernel.packages.${config.device.core.kernel};
+    services.fwupd.enable = true;
   };
 }

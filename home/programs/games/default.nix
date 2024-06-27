@@ -6,18 +6,17 @@
 # games
 {
   home.packages = with pkgs; [
-    inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin
     gamescope
     prismlauncher
     (lutris.override
-    {
-      extraPkgs = p: [
-        p.wineWowPackages.staging
-        p.pixman
-        p.libjpeg
-        p.gnome.zenity
-      ];
-    })
+      {
+        extraPkgs = p: [
+          p.wineWowPackages.staging
+          p.pixman
+          p.libjpeg
+          p.gnome.zenity
+        ];
+      })
     winetricks
   ];
 

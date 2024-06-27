@@ -81,7 +81,7 @@
     hardware = {
       bluetooth = {
         enable = true;
-        enableManager = false;
+        enableManager = true;
       };
       cpu = {
         amd = {enable = true;};
@@ -104,15 +104,6 @@
     };
     server = {
       services = {
-        acme = {enable = false;};
-        fail2ban = {enable = false;};
-        freeipaServer = {enable = false;};
-        keycloak = {enable = false;};
-        mysql = {enable = false;};
-        nginx = {enable = false;};
-        postgresql = {enable = false;};
-        teamspeak = {enable = false;};
-        deploy = {enable = true;};
       };
     };
     utils = {

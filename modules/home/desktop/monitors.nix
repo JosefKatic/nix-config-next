@@ -1,11 +1,12 @@
-{ lib, config, ... }:
-
-let
+{
+  lib,
+  config,
+  ...
+}: let
   inherit (lib) mkOption types;
   cfg = config.monitors;
-in
-{
-  options.user.monitors = mkOption {
+in {
+  options.monitors = mkOption {
     type = types.listOf (types.submodule {
       options = {
         name = mkOption {
@@ -40,19 +41,15 @@ in
           type = types.bool;
           default = true;
         };
-        workspace = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-        };
       };
     });
-    default = [ ];
+    default = [];
   };
   config = {
-    assertions = [{
-      assertion = ((lib.length config.monitors) != 0) ->
-        ((lib.length (lib.filter (m: m.primary) config.monitors)) == 1);
-      message = "Exactly one monitor must be set to primary.";
-    }];
+    # assertions = [{
+    # assertion = ((lib.length config.monitors) != 0) ->
+    # ((lib.length (lib.filter (m: m.primary) config.monitors)) == 1);
+    # message = "Exactly one monitor must be set to primary.";
+    # }];
   };
 }

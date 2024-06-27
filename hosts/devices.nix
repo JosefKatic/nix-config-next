@@ -1,4 +1,22 @@
 # {
+#   "hirundo" = {
+#     boot = {
+#       boot = {
+#         uefi = {
+#           enable = "<boolean>";
+#           secureboot = "<boolean>";
+#         };
+#         quietboot.enable = "<boolean>";
+#       };
+#       };
+#       core = {
+#       # ...
+#       };
+#       # ...
+#   };
+# };
+
+# {
 #   devices = {
 #     "hirundo" = {
 #       device = {
@@ -103,7 +121,7 @@
 #           services = {
 #             acme.enable = true;
 #             fail2ban.enable = true;
-#             freeipaServer.enable = true;
+#             freeipa.enable = true;
 #             keycloak.enable = true;
 #             nginx.enable = true;
 #             postgresql.enable = true;

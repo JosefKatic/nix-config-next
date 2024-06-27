@@ -3,7 +3,6 @@
   lib,
   ...
 }: let
-  variant = config.theme.name;
 in {
   wayland.windowManager.hyprland.settings = {
     # layer rules
@@ -14,11 +13,12 @@ in {
 
       ignorealpha = [
         # ags
-        "calendar"
-        "notifications"
+        "blur,waybar"
+        "ignorezero,waybar"
+        "blur,notifications"
+        "ignorezero,notifications"
         "osd"
         "system-menu"
-
         "anyrun"
       ];
 

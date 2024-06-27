@@ -6,7 +6,7 @@
   default,
   ...
 }: let
-  variant = config.theme.name;
+  variant = config.theme.colorscheme.mode;
   cfg = config.device.desktop.wayland.displayManager.regreet;
 
   homeCfgs = config.home-manager.users;

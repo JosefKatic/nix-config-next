@@ -1,136 +1,163 @@
 {
   "boot": {
-    "legacy": { "enable": "boolean" },
-    "quietboot": { "enable": "boolean" },
+    "quietboot": { "enable": "device.boot.quietboot.enable" },
     "uefi": {
-      "enable": "boolean",
-      "secureboot": "boolean"
+      "enable": "device.boot.uefi.enable",
+      "secureboot": "device.boot.uefi.secureboot"
     }
   },
   "core": {
-    "disableDefaults": "boolean",
+    "disableDefaults": "device.core.disableDefaults",
+    "kernel": "device.core.kernel",
     "locale": {
-      "defaultLocale": "string",
-      "supportedLocales": "string[]",
-      "timeZone": "string"
+      "defaultLocale": "device.core.locale.defaultLocale",
+      "supportedLocales": "device.core.locale.supportedLocales",
+      "timeZone": "device.core.locale.timeZone"
     },
     "network": {
-      "domain": "string",
+      "domain": "device.core.network.domain",
       "services": {
-        "enableAvahi": "boolean",
-        "enableNetworkManager": "boolean",
-        "enableResolved": "boolean"
+        "enableAvahi": "device.core.network.services.enableAvahi",
+        "enableNetworkManager": "device.core.network.services.enableNetworkManager",
+        "enableResolved": "device.core.network.services.enableResolved"
       }
     },
-    "securityRules": { "enable": "boolean" },
+    "securityRules": { "enable": "device.core.securityRules.enable" },
     "shells": {
-      "fish": { "enable": "boolean" },
-      "zsh": { "enable": "boolean" }
+      "fish": { "enable": "device.core.shells.fish.enable" },
+      "zsh": { "enable": "device.core.shells.zsh.enable" }
     },
     "storage": {
-      "enablePersistence": "boolean",
-      "otherDrives": "drives[]",
+      "enablePersistence": "device.core.storage.enablePersistence",
+      "otherDrives": "device.core.storage.otherDrives",
       "swapFile": {
-        "enable": "boolean",
-        "path": "string",
-        "size": "int"
+        "enable": "device.core.storage.swapFile.enable",
+        "path": "device.core.storage.swapFile.path",
+        "size": "device.core.storage.swapFile.size"
       },
       "systemDrive": {
         "encrypted": {
-          "enable": "boolean",
-          "path": "string"
+          "enable": "device.core.storage.systemDrive.encrypted.enable",
+          "path": "device.core.storage.systemDrive.encrypted.path"
         },
-        "name": "string",
-        "path": "string"
+        "name": "device.core.storage.systemDrive.name",
+        "path": "device.core.storage.systemDrive.path"
       }
     }
   },
   "desktop": {
-    "gamemode": { "enable": "boolean" },
+    "gamemode": { "enable": "device.desktop.gamemode.enable" },
     "wayland": {
       "desktopManager": {
         "gnome": {
-          "enable": "boolean"
+          "enable": "device.desktop.wayland.desktopManager.gnome.enable"
         },
         "plasma6": {
-          "enable": "boolean"
+          "enable": "device.desktop.wayland.desktopManager.plasma6.enable"
         }
       },
       "displayManager": {
+        "gdm": { "enable": "device.desktop.wayland.displayManager.gdm.enable" },
         "regreet": {
-          "enable": "boolean",
+          "enable": "device.desktop.wayland.displayManager.regreet.enable",
           "themes": {
             "cursor": {
-              "name": "string",
-              "package": "string"
+              "name": "device.desktop.wayland.displayManager.regreet.themes.cursor.name",
+              "package": "device.desktop.wayland.displayManager.regreet.themes.cursor.package"
             },
             "gtk": {
-              "name": "string",
-              "package": "string"
+              "name": "device.desktop.wayland.displayManager.regreet.themes.gtk.name",
+              "package": "device.desktop.wayland.displayManager.regreet.themes.gtk.package"
             },
             "icons": {
-              "name": "string",
-              "package": "string"
+              "name": "device.desktop.wayland.displayManager.regreet.themes.icons.name",
+              "package": "device.desktop.wayland.displayManager.regreet.themes.icons.package"
             }
           }
         }
       },
       "windowManager": {
         "hyprland": {
-          "enable": "boolean"
+          "enable": "device.desktop.wayland.windowManager.hyprland.enable"
         },
-        "sway": { "enable": "boolean" }
+        "sway": { "enable": "device.desktop.wayland.windowManager.sway.enable" }
       }
     }
   },
   "hardware": {
     "bluetooth": {
-      "enable": "boolean",
-      "enableManager": "boolean"
+      "enable": "device.hardware.bluetooth.enable",
+      "enableManager": "device.hardware.bluetooth.enableManager"
     },
     "cpu": {
-      "amd": { "enable": "boolean" },
-      "intel": { "enable": "boolean" }
+      "amd": { "enable": "device.hardware.cpu.amd.enable" },
+      "intel": { "enable": "device.hardware.cpu.intel.enable" }
     },
     "disks": {
-      "hdd": { "enable": "boolean" },
-      "ssd": { "enable": "boolean" }
+      "hdd": { "enable": "device.hardware.disks.hdd.enable" },
+      "ssd": { "enable": "device.hardware.disks.ssd.enable" }
     },
     "gpu": {
-      "amd": { "enable": "boolean" },
-      "intel": { "enable": "boolean" },
-      "nvidia": {
-        "enable": "boolean",
-        "package": "string"
-      }
+      "amd": { "enable": "device.hardware.gpu.amd.enable" },
+      "intel": { "enable": "device.hardware.gpu.intel.enable" },
+      "nvidia": { "enable": "device.hardware.gpu.nvidia.enable" }
     },
     "misc": {
-      "trezor": { "enable": "boolean" },
-      "xbox": { "enable": "boolean" },
-      "yubikey": { "enable": "boolean" }
+      "trezor": { "enable": "device.hardware.misc.trezor.enable" },
+      "xbox": { "enable": "device.hardware.misc.xbox.enable" },
+      "yubikey": { "enable": "device.hardware.misc.yubikey.enable" }
     }
   },
   "server": {
-    "services": {
-      "acme": { "enable": "boolean" },
-      "fail2ban": { "enable": "boolean" },
-      "freeipaServer": {
-        "enable": "boolean",
-        "router": "string"
+    "auth": {
+      "freeipa": {
+        "enable": "device.server.auth.freeipa.enable",
+        "router": "device.server.auth.freeipa.router"
       },
-      "keycloak": { "enable": "boolean" },
-      "nginx": { "enable": "boolean" },
-      "postgresql": { "enable": "boolean" },
-      "teamspeak": { "enable": "boolean" }
-    }
+      "keycloak": { "enable": "device.server.auth.keycloak.enable" }
+    },
+    "cache": { "enable": "device.server.cache.enable" },
+    "databases": {
+      "mysql": { "enable": "device.server.databases.mysql.enable" },
+      "postgresql": { "enable": "device.server.databases.postgresql.enable" }
+    },
+    "git": {
+      "cgit": { "enable": "device.server.git.cgit.enable" },
+      "daemon": { "enable": "device.server.git.daemon.enable" }
+    },
+    "homelab": {
+      "blocky": { "enable": "device.server.homelab.blocky.enable" },
+      "homeassistant": {
+        "enable": "device.server.homelab.homeassistant.enable"
+      },
+      "mosquitto": { "enable": "device.server.homelab.mosquitto.enable" },
+      "zigbee2mqtt": { "enable": "device.server.homelab.zigbee2mqtt.enable" }
+    },
+    "hydra": { "enable": "device.server.hydra.enable" },
+    "minecraft": { "enable": "device.server.minecraft.enable" },
+    "services": {
+      "fail2ban": { "enable": "device.server.services.fail2ban.enable" },
+      "frigate": { "enable": "device.server.services.frigate.enable" },
+      "headscale": {
+        "domain": "device.server.services.headscale.domain",
+        "enable": "device.server.services.headscale.enable",
+        "port": "device.server.services.headscale.port"
+      },
+      "web": {
+        "acme": { "enable": "device.server.services.web.acme.enable" },
+        "nginx": { "enable": "device.server.services.web.nginx.enable" }
+      }
+    },
+    "teamspeak": { "enable": "device.server.teamspeak.enable" }
   },
-  "services": { "mysql": { "enable": "boolean" } },
+  "users": "device.users",
   "utils": {
-    "autoUpgrade": { "enable": "boolean" },
-    "kdeconnect": { "enable": "boolean" },
+    "autoUpgrade": { "enable": "device.utils.autoUpgrade.enable" },
+    "kdeconnect": { "enable": "device.utils.kdeconnect.enable" },
     "virtualisation": {
-      "docker": { "enable": "boolean" },
-      "libvirtd": { "enable": "boolean" }
+      "docker": { "enable": "device.utils.virtualisation.docker.enable" },
+      "libvirtd": { "enable": "device.utils.virtualisation.libvirtd.enable" },
+      "podman": { "enable": "device.utils.virtualisation.podman.enable" }
     }
   }
 }

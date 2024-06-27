@@ -24,7 +24,7 @@
     extraConfig =
       "include catppuccin-"
       + (
-        if config.theme.name == "light"
+        if config.theme.colorscheme.mode == "light"
         then "latte"
         else "mocha"
       );

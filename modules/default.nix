@@ -27,8 +27,8 @@ in {
           inputs.hm.nixosModule
           inputs.hyprland.nixosModules.default
           inputs.kmonad.nixosModules.default
-          inputs.nh.nixosModules.default
           inputs.nix-gaming.nixosModules.pipewireLowLatency
+          inputs.nix-minecraft.nixosModules.minecraft-servers
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.sops-nix.nixosModules.sops
           inputs.impermanence.nixosModules.impermanence
@@ -47,6 +47,9 @@ in {
       device = import ./nixos/devices;
       theme = import ./theme;
       nordvpn = import ./nordvpn.nix;
+    };
+    homeManagerModules = {
+      monitors = import ./home/desktop/monitors.nix;
     };
   };
 }

@@ -29,7 +29,7 @@ in {
       };
       path = lib.mkOption {
         type = lib.types.path;
-        default = "/dev/disk/by-partlabel/system";
+        default = "/dev/disk/by-label/system";
         description = "The path to the system drive.";
       };
     };

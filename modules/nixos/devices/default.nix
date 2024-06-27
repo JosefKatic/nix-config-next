@@ -15,6 +15,6 @@
     ./desktop
     ./utils
     ./users
-    ./services
+    ./server
   ];
 }

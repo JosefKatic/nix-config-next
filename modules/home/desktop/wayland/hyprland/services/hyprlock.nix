@@ -1,6 +1,5 @@
 {config, ...}: let
-  variant = config.theme.name;
-  c = config.programs.matugen.theme.colors.colors.${variant};
+  inherit (config.theme.colorscheme) colors;
   wallpaper = config.theme.wallpaper;
   font_family = "Inter";
 in {
@@ -31,9 +30,9 @@ in {
 
         outline_thickness = 2;
 
-        outer_color = "rgb(${c.primary})";
-        inner_color = "rgb(${c.primary_container})";
-        font_color = "rgb(${c.on_primary_container})";
+        outer_color = "rgb(${lib.removePrefix "#" colors.primary})";
+        inner_color = "rgb(${lib.removePrefix "#" colors.primary_container})";
+        font_color = "rgb(${lib.removePrefix "#" colors.on_primary_container})";
         placeholder_text = ''<i>Enter your password...</i>'';
         fade_on_empty = false;
         dots_spacing = 0.3;
@@ -47,7 +46,7 @@ in {
         text = "$TIME";
         inherit font_family;
         font_size = 50;
-        color = "rgb(${c.primary})";
+        color = "rgb(${lib.removePrefix "#" colors.primary})";
 
         position = {
           x = 0;

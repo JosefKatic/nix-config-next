@@ -114,7 +114,7 @@
     "services": {
       "acme": { "enable": "Enables or disables the ACME service" },
       "fail2ban": { "enable": "Enables or disables the Fail2ban service" },
-      "freeipaServer": {
+      "freeipa": {
         "enable": "Enables or disables the FreeIPA server service",
         "router": "Sets the router for the FreeIPA server"
       },

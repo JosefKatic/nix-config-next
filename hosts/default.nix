@@ -7,7 +7,7 @@
   homeImports,
   ...
 }: let
-  specialArgs = {inherit inputs self;};
+  specialArgs = {inherit inputs outputs self;};
   deviceNames = import "${self}/.config/nixos/default.nix";
 in {
   flake = {
@@ -17,7 +17,7 @@ in {
         map (deviceName: {
           name = deviceName;
           value = nixosSystem {
-            specialArgs = {inherit inputs outputs self;};
+            specialArgs = specialArgs;
             modules =
               [
                 {

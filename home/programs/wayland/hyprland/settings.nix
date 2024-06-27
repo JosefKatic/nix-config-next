@@ -1,9 +1,14 @@
-{config, ...}: let
-  variant = config.theme.name;
-  c = config.programs.matugen.theme.colors.colors_android.${variant};
+{
+  config,
+  lib,
+  ...
+}: let
   pointer = config.home.pointerCursor;
 in {
-  wayland.windowManager.hyprland.settings = {
+  wayland.windowManager.hyprland.settings = let
+    active = "0xaa${lib.removePrefix "#" config.theme.colorscheme.colors.primary}";
+    inactive = "0xaa${lib.removePrefix "#" config.theme.colorscheme.colors.surface_bright}";
+  in {
     "$mod" = "SUPER";
     env = [
       "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
@@ -19,8 +24,8 @@ in {
       gaps_in = 5;
       gaps_out = 5;
       border_size = 1;
-      "col.active_border" = "rgba(88888888)";
-      "col.inactive_border" = "rgba(00000088)";
+      "col.active_border" = active;
+      "col.inactive_border" = inactive;
 
       allow_tearing = true;
     };
@@ -76,9 +81,8 @@ in {
         font_size = 16;
         gradients = false;
       };
-
-      "col.border_active" = "rgba(${c.color_accent_primary}88);";
-      "col.border_inactive" = "rgba(${c.color_accent_primary_variant}88)";
+      "col.border_active" = active;
+      "col.border_inactive" = inactive;
     };
 
     input = {
@@ -107,6 +111,12 @@ in {
 
       # enable variable refresh rate (effective depending on hardware)
       vrr = 1;
+
+      vfr = true;
+      close_special_on_empty = true;
+      focus_on_activate = true;
+      # Unfullscreen when opening something
+      new_window_takes_over_fullscreen = 2;
     };
 
     # touchpad gestures

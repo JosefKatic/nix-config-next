@@ -49,7 +49,7 @@
         ];
         search = {
           force = true;
-          default = "DuckDuckGo";
+          default = "Google";
           engines = {
             "Nix Packages" = {
               urls = [
@@ -77,7 +77,6 @@
               definedAliases = ["@nw"];
             };
             "Wikipedia (en)".metaData.alias = "@wiki";
-            "Google".metaData.hidden = true;
             "Amazon.com".metaData.hidden = true;
             "Bing".metaData.hidden = true;
             "eBay".metaData.hidden = true;

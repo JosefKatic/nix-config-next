@@ -20,58 +20,62 @@
   lockTime = 10 * 60;
   afterLockTimeout = {
     timeout,
-    onTimeout,
-    onResume ? null,
+    on-timeout,
+    on-resume ? null,
   }: [
     {
       timeout = lockTime + timeout;
-      inherit onTimeout onResume;
+      inherit on-timeout on-resume;
     }
     {
-      onTimeout = "${isLocked} && ${onTimeout}";
-      inherit onResume timeout;
+      on-timeout = "${isLocked} && ${on-timeout}";
+      inherit on-resume timeout;
     }
   ];
 in {
   services.hypridle = {
     enable = true;
-    beforeSleepCmd = "${pkgs.systemd}/bin/loginctl lock-session";
-    lockCmd = lib.getExe config.programs.hyprlock.package;
-    listeners =
-      [
-        {
-          timeout = lockTime;
-          onTimeout = "${pkgs.systemd}/bin/loginctl lock-session";
-          onResume = "";
-        }
-      ]
-      ++
-      # Mute mic
-      (afterLockTimeout {
-        timeout = 10;
-        onTimeout = "${pactl} set-source-mute @DEFAULT_SOURCE@ yes";
-        onResume = "${pactl} set-source-mute @DEFAULT_SOURCE@ no";
-      })
-      ++
-      # Suspend
-      (afterLockTimeout {
-        timeout = 60;
-        onTimeout = suspendScript.outPath;
-        onResume = "";
-      })
-      ++
-      # Turn off displays (hyprland)
-      (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
-        timeout = 40;
-        onTimeout = "${hyprctl} dispatch dpms off";
-        onResume = "${hyprctl} dispatch dpms on";
-      }))
-      ++
-      # Turn off displays (sway)
-      (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
-        timeout = 40;
-        onTimeout = "${swaymsg} 'output * dpms off'";
-        onResume = "${swaymsg} 'output * dpms on'";
-      }));
+    settings = {
+      general = {
+        lock_cmd = lib.getExe config.programs.hyprlock.package;
+        before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
+      };
+      listener =
+        [
+          {
+            timeout = lockTime;
+            on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
+            on-resume = "";
+          }
+        ]
+        ++
+        # Mute mic
+        (afterLockTimeout {
+          timeout = 10;
+          on-timeout = "${pactl} set-source-mute @DEFAULT_SOURCE@ yes";
+          on-resume = "${pactl} set-source-mute @DEFAULT_SOURCE@ no";
+        })
+        ++
+        # Suspend
+        (afterLockTimeout {
+          timeout = 60;
+          on-timeout = suspendScript.outPath;
+          on-resume = "";
+        })
+        ++
+        # Turn off displays (hyprland)
+        (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
+          timeout = 40;
+          on-timeout = "${hyprctl} dispatch dpms off";
+          on-resume = "${hyprctl} dispatch dpms on";
+        }))
+        ++
+        # Turn off displays (sway)
+        (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
+          timeout = 40;
+          on-timeout = "${swaymsg} 'output * dpms off'";
+          on-resume = "${swaymsg} 'output * dpms on'";
+        }));
+    };
   };
 }

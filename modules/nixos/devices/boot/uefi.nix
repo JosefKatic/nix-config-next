@@ -35,6 +35,7 @@ in {
     fileSystems."/efi" = {
       device = "/dev/disk/by-label/EFI";
       fsType = "vfat";
+      options = ["fmask=0077" "dmask=0077"];
     };
 
     environment.persistence = lib.mkIf (cfg.core.storage.enablePersistence && cfg.boot.uefi.secureboot) {

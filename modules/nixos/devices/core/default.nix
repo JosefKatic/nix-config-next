@@ -13,7 +13,7 @@
   # security = import ./security.nix { inherit config lib options pkgs; };
 in {
   documentation.dev.enable = true;
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   imports = [
     ./storage
     ./locale.nix

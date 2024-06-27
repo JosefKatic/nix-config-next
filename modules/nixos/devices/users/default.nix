@@ -33,33 +33,42 @@ in {
     users.mutableUsers = false;
     # Loop
 
-    users.extraUsers.nix-deploy = {
-      isNormalUser = true;
-      shell = pkgs.bash;
-      group = "nix-deploy";
-      extraGroups = [
-        "wheel"
-      ];
-      home = "/.deploy";
-      hashedPasswordFile = config.sops.secrets.joka-password.path;
-      openssh.authorizedKeys.keys = [(builtins.readFile "${self}/home/joka/ssh.pub")];
-    };
+    # users.users.deploy = {
+    #   isNormalUser = true;
+    #   extraGroups = ["wheel"];
+    #   useDefaultShell = true;
+    #   home = "/tmp/deploy";
+    #   createHome = true;
+    #   hashedPasswordFile = config.sops.secrets.joka-password.path;
+    #   openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEdTMV//NJlgA7P87ZoIuk6PZHZDgYfODJck0wZmRqWV deploy"];
+    # };
+    # users.extraUsers.nix-deploy = {
+    #   isNormalUser = true;
+    #   shell = pkgs.bash;
+    #   group = "nix-deploy";
+    #   extraGroups = [
+    #     "wheel"
+    #   ];
+    #   home = "/.deploy";
+    #   hashedPasswordFile = config.sops.secrets.joka-password.path;
+    #   openssh.authorizedKeys.keys = [(builtins.readFile "${self}/home/joka/ssh.pub")];
+    # };
 
     security.sudo.extraRules = [
       {
         users = ["deploy"];
         commands = [
           {
-            command = "${lib.getExe pkgs.deploy-rs}";
-            options = ["NOPASSWD"];
+            command = lib.getExe pkgs.deploySystem;
+            options = ["NOSETENV" "NOPASSWD"];
           }
           {
             command = "/run/current-system/sw/bin/nixos-rebuild";
-            options = ["NOPASSWD"];
+            options = ["NOSETENV" "NOPASSWD"];
           }
           {
             command = "/run/current-system/bin/switch-to-configuration";
-            options = ["NOPASSWD"];
+            options = ["NOSETENV" "NOPASSWD"];
           }
         ];
       }
@@ -76,6 +85,8 @@ in {
           "audio"
           "network"
           "i2c"
+          "adbusers"
+          "dialout"
         ]
         ++ ifTheyExist [
           "minecraft"

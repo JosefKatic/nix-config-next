@@ -32,11 +32,10 @@ in {
     ./terminal
     inputs.matugen.nixosModules.default
     inputs.nix-index-db.hmModules.nix-index
-    inputs.hyprlock.homeManagerModules.default
-    inputs.hypridle.homeManagerModules.default
     inputs.nur.nixosModules.nur
     inputs.impermanence.nixosModules.home-manager.impermanence
     self.nixosModules.theme
+    self.homeManagerModules.monitors
   ];
 
   nix = {

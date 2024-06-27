@@ -6,11 +6,6 @@
   ...
 }: let
   cfg = config.device.desktop.wayland.desktopManager;
-  logoFile = pkgs.fetchurl {
-    url = "https://joka00.dev/assets/logo_white.png";
-    sha256 = "0nj3igrr5p4m1h32i7aa9mlacam6mjljrc34cs6nj11ig3hz6s36";
-    downloadToTemp = true;
-  };
 in {
   options.device.desktop.wayland.desktopManager = {
     gnome = {enable = lib.mkEnableOption "Enable Gnome";};
@@ -18,16 +13,8 @@ in {
   };
 
   config = {
-    # programs.dconf.profiles.gdm.databases = [
-    # {
-    # settings = {
-    # "org/gnome/login-screen" = {
-    # logo = "file://${logoFile}";
-    # };
-    # };
-    # }
-    # ];
     services.xserver.desktopManager.gnome.enable = cfg.gnome.enable;
+
     # Taken from https://hoverbear.org/blog/declarative-gnome-configuration-in-nixos/
     # Most of the excluded packages are replaced by alternatives in home config
     environment.gnome.excludePackages =
